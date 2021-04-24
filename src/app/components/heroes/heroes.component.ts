@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Heroe } from 'src/app/models/heroe';
+import { first } from 'rxjs/operators';
 import { HeroeService } from 'src/app/services/heroe.service';
 
 @Component({
@@ -10,7 +10,8 @@ import { HeroeService } from 'src/app/services/heroe.service';
   styleUrls: ['./heroes.component.scss']
 })
 export class HeroesComponent implements OnInit {
-  heroes: Heroe[];
+  heroes: any;
+  asyncCorrect: Promise<boolean>;
 
   constructor(
     private heroeService: HeroeService,
@@ -18,10 +19,21 @@ export class HeroesComponent implements OnInit {
     public router: Router) { }
 
   async ngOnInit() {
-    this.heroes = await this.heroeService.getHeroes();
+    await this.heroeService.getHeroes().pipe(first()).toPromise().then(
+      resp => {
+        this.heroes = resp;
+        this.asyncCorrect = Promise.resolve(true);
+        this.heroeService.heroes = resp;
+      }
+    );
+    console.log(this.heroeService.getHeroeById("4"));
   }
   openNew() {
-    this.router.navigate(['new']);
+    this.router.navigate(['heroes/new']);
+  }
+  filterInput(text: string) {
+    this.heroes = this.heroeService.filterHeroe(text);
+    console.log(this.heroes)
   }
   deleteProduct(heroe) {
 

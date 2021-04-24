@@ -1,10 +1,15 @@
-<div class="p-grid table">
+<div class="p-grid table" *ngIf="asyncCorrect | async">
 
-    <div class="btn-create">
-        <button pButton type="button" class="p-button" (click)="openNew()"> {{'Buttons.Create' | translate}} </button>
+    <div class="p-col-12 p-d-flex">
+        <button pButton type="button" class="p-button" (click)="openNew()"> {{'Buttons.Create' | translate}}
+        </button>
+        <span class="p-input-icon-left p-ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (keyup.enter)="filterInput($event.target.value)" placeholder="Filtrar" />
+        </span>
     </div>
 
-    <p-table [value]="heroes" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+    <p-table [(value)]="heroes" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
         [rowsPerPageOptions]="[5,10,25,50]">
         <ng-template pTemplate="header">
