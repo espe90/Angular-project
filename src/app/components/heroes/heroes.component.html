@@ -1,0 +1,41 @@
+<div class="p-grid table">
+
+    <div class="btn-create">
+        <button pButton type="button" class="p-button" (click)="openNew()"> {{'Buttons.Create' | translate}} </button>
+    </div>
+
+    <p-table [value]="heroes" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
+        [rowsPerPageOptions]="[5,10,25,50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- si se quisiera pintar todos los campos del json hariamos en ngFor -->
+                <th>{{'Heroes.Table.Headers.Id' | translate | uppercase }}</th>
+                <th>{{'Heroes.Table.Headers.Name' | translate | uppercase }}</th>
+                <th>{{'Heroes.Table.Headers.Gen' | translate | uppercase }}</th>
+                <th pSortableColumn="height">{{'Heroes.Table.Headers.Alt' | translate | uppercase }} <p-sortIcon
+                        field="height"></p-sortIcon>
+                </th>
+                <th>{{'Heroes.Table.Headers.Cread' | translate | uppercase }}</th>
+                <th>{{'Heroes.Table.Headers.Alin' | translate | uppercase }}</th>
+                <th>{{'Heroes.Table.Headers.Actions' | translate | uppercase }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-heroe>
+            <tr>
+                <td>{{heroe.id}}</td>
+                <td>{{heroe.name}}</td>
+                <td>{{heroe.gender}}</td>
+                <td>{{heroe.height}}</td>
+                <td>{{heroe.publisher}}</td>
+                <td>{{heroe.alignment}}</td>
+                <td>
+                    <button pButton type="button" class="p-button p-button-secondary pi pi-pencil p-mr-2"
+                        (click)="editProduct(heroe)"></button>
+                    <button pButton type="button" class="p-button p-button-danger pi pi-trash"
+                        (click)="deleteProduct(heroe)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -1,0 +1,30 @@
+{
+    "Home": {
+        "Title": "Heroes"
+    },
+    "Heroes": {
+        "Table": {
+            "Headers": {
+                "Id": "Id",
+                "Name": "Nombre",
+                "Gen": "Género",
+                "Alt": "Altura",
+                "Cread": "Creador",
+                "Alin": "Alineamiento",
+                "Actions": "Acciones"
+            }
+        },
+        "New": {
+            "Title": "Alta de Heroe"
+        },
+        "Buttons": {
+            "List": "Consulta",
+            "Alta": "Alta"
+        }
+    },
+    "Buttons": {
+        "Create": "Añadir Heroe",
+        "Edit": "Editar",
+        "Delete": "Eliminar"
+    }
+}

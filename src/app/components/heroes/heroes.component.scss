@@ -1,0 +1,18 @@
+.table {
+    margin: 0 2rem;
+    .btn-create {
+        margin: 1rem 0;
+    }
+    ::ng-deep p-table {
+        .p-button {
+            border-radius: 50%;
+            padding: 0.5rem;
+        }
+        .p-datatable .p-datatable-thead > tr > th {
+            background-color: var(--purple-100);
+        }
+        .p-datatable .p-datatable-tbody > tr:hover {
+            background-color: var(--purple-50);
+        }
+    }
+}
