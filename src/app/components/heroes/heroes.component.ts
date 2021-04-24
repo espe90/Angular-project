@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Heroe } from 'src/app/models/heroe';
 import { HeroeService } from 'src/app/services/heroe.service';
@@ -11,14 +12,16 @@ import { HeroeService } from 'src/app/services/heroe.service';
 export class HeroesComponent implements OnInit {
   heroes: Heroe[];
 
-  constructor(private heroeService: HeroeService,
-    public translate: TranslateService) { }
+  constructor(
+    private heroeService: HeroeService,
+    public translate: TranslateService,
+    public router: Router) { }
 
   async ngOnInit() {
     this.heroes = await this.heroeService.getHeroes();
   }
   openNew() {
-
+    this.router.navigate(['new']);
   }
   deleteProduct(heroe) {
 

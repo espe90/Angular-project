@@ -2,7 +2,10 @@
     <div class="p-col-12">
         <h1>{{'Home.Title' | translate | uppercase}}</h1>
     </div>
-    <div class="p-col-12">
-        <app-heroes></app-heroes>
+    <div class="p-col-12 menu" *ngIf="asynCorrect | async">
+        <p-tabMenu [model]="menu"></p-tabMenu>
+    </div>
+    <div class="p-col-12 view">
+        <router-outlet></router-outlet>
     </div>
 </div>

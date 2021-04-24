@@ -5,13 +5,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TableModule } from 'primeng/table';
-import { ToolbarModule } from 'primeng/toolbar';
+import { TabMenuModule } from 'primeng/tabmenu';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './components/heroes/heroes.component';
 import { NewHeroeComponent } from './components/new-heroe/new-heroe.component';
 import { ViewHeroeComponent } from './components/view-heroe/view-heroe.component';
-
 
 @NgModule({
   declarations: [
@@ -35,7 +34,7 @@ import { ViewHeroeComponent } from './components/view-heroe/view-heroe.component
     }),
     TableModule,
     BrowserAnimationsModule,
-    ToolbarModule
+    TabMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

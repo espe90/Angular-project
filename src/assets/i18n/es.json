@@ -1,6 +1,6 @@
 {
     "Home": {
-        "Title": "Heroes"
+        "Title": "Héroes"
     },
     "Heroes": {
         "Table": {
@@ -23,7 +23,7 @@
         }
     },
     "Buttons": {
-        "Create": "Añadir Heroe",
+        "Create": "Añadir Héroe",
         "Edit": "Editar",
         "Delete": "Eliminar"
     }
