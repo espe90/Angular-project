@@ -1,0 +1,43 @@
+{
+    "labels": [
+        {
+            "label": "Heroes.Form.Name",
+            "mappingDTO": "name",
+            "tag": "input",
+            "type": "text",
+            "class": "p-col-5",
+            "required": true
+        },
+        {
+            "label": "Heroes.Form.Gen",
+            "mappingDTO": "gender",
+            "tag": "select",
+            "class": "p-col-12",
+            "required": true
+        },
+        {
+            "label": "Heroes.Form.Alt",
+            "mappingDTO": "height",
+            "tag": "input",
+            "type": "number",
+            "min": "1",
+            "class": "p-col-5",
+            "required": true
+        },
+        {
+            "label": "Heroes.Form.Cread",
+            "mappingDTO": "publisher",
+            "tag": "input",
+            "type": "text",
+            "class": "p-col-5",
+            "required": true
+        },
+        {
+            "label": "Heroes.Form.Alin",
+            "mappingDTO": "alignment",
+            "tag": "select",
+            "class": "p-col-12",
+            "required": true
+        }
+    ]
+}

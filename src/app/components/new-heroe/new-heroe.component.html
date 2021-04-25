@@ -1,6 +1,32 @@
-<div *ngIf="asyncCorrect | async" class="p-grid">
-    <form [formGroup]="newHeroeForm" #newHeroe="ngForm" class="p-col-12">
-        <!-- <div [class]="element.class" *ngFor="let element of room">
-        </div> -->
+<div class="p-grid" style="justify-content: center;">
+    <h2>{{'Heroes.New.Title' | translate }}</h2>
+</div>
+<div *ngIf="asyncCorrect | async" class="p-grid" style="justify-content: center;">
+    <form [formGroup]="newHeroeForm" #newHeroe="ngForm" class="p-col-4">
+        <ng-container *ngFor="let label of json.labels">
+            <ng-container [ngSwitch]="label.tag">
+                <div class="p-col form-box" *ngSwitchCase="'input'">
+                    <label class="p-col-12" [for]="label.mappingDTO"> {{label.label | translate}}</label>
+                    <input [id]="label.mappingDTO" [name]="label.mappingDTO" pInputText [type]="label.type"
+                        [maxlength]="label.maxLength ? label.maxLength : 255" [min]="label.min ? label.min : null"
+                        [formControlName]="label.mappingDTO">
+                </div>
+                <div class="p-col form-box" *ngSwitchCase="'select'">
+                    <label class="p-col-12" [for]="label.mappingDTO"> {{label.label | translate}}</label>
+                    <p-dropdown [id]="label.mappingDTO" [name]="label.mappingDTO " [class]="label.class"
+                        [options]="valueSelect.get(label.mappingDTO)" [formControlName]="label.mappingDTO"
+                        optionLabel="name" (onChange)="setValueSelect($event.value, label.mappingDTO)">
+                    </p-dropdown>
+                </div>
+            </ng-container>
+        </ng-container>
     </form>
+    <div class="p-col-12 buttons">
+        <button type="button" class="p-button p-button-secondary" pButton (click)="cancel()"
+            style="margin-right: 5rem;"> {{'Buttons.Cancel' | translate}}
+        </button>
+        <button type="button" class="p-button" pButton (click)="saveHeroe()" [disabled]="newHeroeForm.invalid">
+            {{'Buttons.Save' | translate}}
+        </button>
+    </div>
 </div>

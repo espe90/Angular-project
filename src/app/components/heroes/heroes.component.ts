@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { first } from 'rxjs/operators';
 import { HeroeService } from 'src/app/services/heroe.service';
 
 @Component({
@@ -23,12 +22,7 @@ export class HeroesComponent implements OnInit {
 
   async ngOnInit() {
     await this.getTableConfiguration();
-    await this.heroeService.getHeroes().pipe(first()).toPromise().then(
-      resp => {
-        this.heroes = resp;
-        this.heroeService.heroes = resp;
-      }
-    );
+    this.heroes = this.heroeService.heroes;
   }
 
   async getTableConfiguration() {
@@ -65,7 +59,8 @@ export class HeroesComponent implements OnInit {
   }
 
   editProduct(heroe) {
-
+    localStorage.setItem('selectedHeroe', JSON.stringify(heroe));
+    this.router.navigate(['heroes/' + heroe.id + '/view']);
   }
 
   deleteProduct(heroe) {

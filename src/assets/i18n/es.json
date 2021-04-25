@@ -14,18 +14,28 @@
                 "Actions": "Acciones"
             }
         },
-        "New": {
-            "Title": "Alta de Heroe"
+        "Form": {
+            "Id": "Id",
+            "Name": "Nombre",
+            "Gen": "Género",
+            "Alt": "Altura",
+            "Cread": "Creador",
+            "Alin": "Alineamiento"
         },
-        "Buttons": {
-            "List": "Consulta",
-            "Alta": "Alta"
+        "New": {
+            "Title": "Nuevo Héroe"
+        },
+        "Edit": {
+            "Title": "Edición Héroe"
         }
     },
     "Buttons": {
         "Create": "Añadir Héroe",
         "Edit": "Editar",
         "Delete": "Eliminar",
-        "Reset": "Recargar"
+        "Reset": "Recargar",
+        "Cancel": "Cancelar",
+        "Save": "Guardar",
+        "Updated": "Actualizar"
     }
 }

@@ -7,11 +7,13 @@ import { Heroe } from '../models/heroe';
 })
 
 export class HeroeService {
-    heroes: any;
+    heroes: any[];
     constructor(private http: HttpClient) {
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+    }
 
     getHeroes(): Observable<Heroe> {
         return this.http.get<Heroe>('assets/data/mock-heroes.json');
