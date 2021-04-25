@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,33 +13,62 @@ import { HeroeService } from 'src/app/services/heroe.service';
 export class HeroesComponent implements OnInit {
   heroes: any;
   asyncCorrect: Promise<boolean>;
+  configTable: any;
 
   constructor(
     private heroeService: HeroeService,
     public translate: TranslateService,
-    public router: Router) { }
+    public router: Router,
+    public http: HttpClient) { }
 
   async ngOnInit() {
+    await this.getTableConfiguration();
     await this.heroeService.getHeroes().pipe(first()).toPromise().then(
       resp => {
         this.heroes = resp;
-        this.asyncCorrect = Promise.resolve(true);
         this.heroeService.heroes = resp;
       }
     );
-    console.log(this.heroeService.getHeroeById("4"));
   }
+
+  async getTableConfiguration() {
+    return new Promise((resolve) => {
+      this.http.get<any>('assets/json/configTableHeroes.json').subscribe(
+        resp => {
+          this.configTable = resp;
+          this.asyncCorrect = Promise.resolve(true);
+          resolve(true);
+        }
+      )
+    }
+    );
+  }
+
+  filterInput(data: string, type: string) {
+    switch (type) {
+      case 'id':
+        this.heroes = this.heroeService.getHeroeById(Number(data), this.heroes);
+        break;
+      case 'name':
+        this.heroes = this.heroeService.filterHeroe(data, this.heroes);
+        break;
+      default:
+        break;
+    }
+  }
+  reset() {
+    this.heroes = this.heroeService.heroes;
+  }
+
   openNew() {
     this.router.navigate(['heroes/new']);
   }
-  filterInput(text: string) {
-    this.heroes = this.heroeService.filterHeroe(text);
-    console.log(this.heroes)
-  }
-  deleteProduct(heroe) {
+
+  editProduct(heroe) {
 
   }
-  editProduct(heroe) {
+
+  deleteProduct(heroe) {
 
   }
 

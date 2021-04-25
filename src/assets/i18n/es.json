@@ -25,6 +25,7 @@
     "Buttons": {
         "Create": "Añadir Héroe",
         "Edit": "Editar",
-        "Delete": "Eliminar"
+        "Delete": "Eliminar",
+        "Reset": "Recargar"
     }
 }

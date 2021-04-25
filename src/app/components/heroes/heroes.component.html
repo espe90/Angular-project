@@ -1,39 +1,45 @@
 <div class="p-grid table" *ngIf="asyncCorrect | async">
 
     <div class="p-col-12 p-d-flex">
-        <button pButton type="button" class="p-button" (click)="openNew()"> {{'Buttons.Create' | translate}}
-        </button>
-        <span class="p-input-icon-left p-ml-auto">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" (keyup.enter)="filterInput($event.target.value)" placeholder="Filtrar" />
-        </span>
+        <div class="p-col p-d-flex" style="justify-content: left;">
+            <button pButton type="button" class="p-button  p-mr-2" (click)="openNew()"> {{'Buttons.Create' | translate}}
+            </button>
+        </div>
+        <div class="p-col p-d-flex" style="justify-content: center;">
+            <span class="p-input-icon-left p-mr-2">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (keyup.enter)="filterInput($event.target.value,'id')"
+                    placeholder="Filtrar por ID" />
+            </span>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (keyup.enter)="filterInput($event.target.value,'name')"
+                    placeholder="Filtrar por nombre" />
+            </span>
+        </div>
+        <div class="p-col p-d-flex" style="justify-content: flex-end;">
+            <button pButton type="button" class="p-button p-ml-2" (click)="reset()"> {{'Buttons.Reset' | translate}}
+            </button>
+        </div>
     </div>
 
-    <p-table [(value)]="heroes" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
-        [rowsPerPageOptions]="[5,10,25,50]">
-        <ng-template pTemplate="header">
+    <p-table [value]="heroes" [columns]="configTable.cols" [paginator]="configTable.paginator" [rows]="configTable.rows"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="configTable.rowsPerPageOptions"
+        styleClass="p-datatable-responsive-demo" [resizableColumns]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados">
+        <ng-template pTemplate="header" let-columns>
             <tr>
-                <!-- si se quisiera pintar todos los campos del json hariamos en ngFor -->
-                <th>{{'Heroes.Table.Headers.Id' | translate | uppercase }}</th>
-                <th>{{'Heroes.Table.Headers.Name' | translate | uppercase }}</th>
-                <th>{{'Heroes.Table.Headers.Gen' | translate | uppercase }}</th>
-                <th pSortableColumn="height">{{'Heroes.Table.Headers.Alt' | translate | uppercase }} <p-sortIcon
-                        field="height"></p-sortIcon>
+                <th *ngFor="let col of columns" pSortableColumn="{{col.mappingDTO}}">{{col.header | translate |
+                    uppercase }} <p-sortIcon [field]="col.mappingDTO"></p-sortIcon>
                 </th>
-                <th>{{'Heroes.Table.Headers.Cread' | translate | uppercase }}</th>
-                <th>{{'Heroes.Table.Headers.Alin' | translate | uppercase }}</th>
                 <th>{{'Heroes.Table.Headers.Actions' | translate | uppercase }}</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-heroe>
+        <ng-template pTemplate="body" let-heroe let-columns="columns">
             <tr>
-                <td>{{heroe.id}}</td>
-                <td>{{heroe.name}}</td>
-                <td>{{heroe.gender}}</td>
-                <td>{{heroe.height}}</td>
-                <td>{{heroe.publisher}}</td>
-                <td>{{heroe.alignment}}</td>
+                <td *ngFor="let col of columns">
+                    {{heroe[col.mappingDTO]}}
+                </td>
                 <td>
                     <button pButton type="button" class="p-button p-button-secondary pi pi-pencil p-mr-2"
                         (click)="editProduct(heroe)"></button>

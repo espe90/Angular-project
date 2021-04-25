@@ -17,13 +17,19 @@ export class HeroeService {
         return this.http.get<Heroe>('assets/data/mock-heroes.json');
     }
 
-    getHeroeById(id): Heroe {
-        return this.heroes.find(heroe => (heroe.id === id));
+    getHeroeById(id: number, data: Heroe[]): Heroe[] {
+        let heroes: any[];
+        let heroe = data.find(heroe => (heroe.id === id));
+        if (heroe) {
+            heroes = [];
+            heroes.push(heroe);
+        }
+        return heroes;
     }
 
-    filterHeroe(text: string): Heroe[] {
+    filterHeroe(text: string, data: Heroe[]): Heroe[] {
         let heroes: any[] = [];
-        this.heroes.forEach(heroe => {
+        data.forEach(heroe => {
             if (String(heroe.name).includes(text) || String(heroe.name).toLocaleLowerCase().includes(String(text)))
                 heroes.push(heroe);
         });
