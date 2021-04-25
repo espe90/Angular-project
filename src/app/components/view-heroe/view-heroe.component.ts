@@ -139,6 +139,8 @@ export class ViewHeroeComponent implements OnInit {
       index = this.heroeService.heroes.indexOf(oldHeroe);
       this.heroeService.heroes.splice(index, 1);
       this.heroeService.heroes.push(this.heroeObj);
+      this.heroeService.setItemLocalStorage();
+
       this.messageService.add({ severity: 'success', summary: '', detail: 'Héroe actualizado correctamente' });
       setTimeout(() => {
         this.cancel();

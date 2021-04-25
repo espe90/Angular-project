@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Heroe } from '../models/heroe';
 @Injectable({
     providedIn: 'root'
@@ -13,8 +12,12 @@ export class HeroeService {
 
     ngOnInit() { }
 
-    getHeroes(): Observable<Heroe> {
-        return this.http.get<Heroe>('assets/data/mock-heroes.json');
+    async getHeroes(): Promise<Heroe[]> {
+        this.heroes = JSON.parse(localStorage.getItem('Heroes'));
+        if (!this.heroes)
+            this.heroes = await this.http.get<Heroe>('assets/data/mock-heroes.json').toPromise().then(
+                (resp: any) => resp);
+        return this.heroes;
     }
 
     getHeroeById(id: number, data: Heroe[]): Heroe[] {
@@ -34,5 +37,9 @@ export class HeroeService {
                 heroes.push(heroe);
         });
         return heroes;
+    }
+
+    setItemLocalStorage() {
+        localStorage.setItem('Heroes', JSON.stringify(this.heroes));
     }
 }

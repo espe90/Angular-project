@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { first } from 'rxjs/operators';
 import { HeroeService } from 'src/app/services/heroe.service';
 @Component({
   selector: 'app-heroes',
@@ -25,15 +24,8 @@ export class HeroesComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    if (!this.heroeService.heroes)
-      await this.heroeService.getHeroes().pipe(first()).toPromise().then(
-        (resp: any) => {
-          this.heroeService.heroes = resp;
-        }
-      );
-
+    this.heroes = await this.heroeService.getHeroes();
     await this.getTableConfiguration();
-    this.heroes = this.heroeService.heroes;
   }
 
   async getTableConfiguration() {
@@ -84,6 +76,8 @@ export class HeroesComponent implements OnInit {
         this.confirmationService.close();
         let index = this.heroeService.heroes.indexOf(heroe);
         this.heroeService.heroes.splice(index, 1);
+        this.heroeService.setItemLocalStorage();
+
         this.messageService.add({ severity: 'success', summary: '', detail: 'Héroe eliminado correctamente' });
       },
       reject: () => {

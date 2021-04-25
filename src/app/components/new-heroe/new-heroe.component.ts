@@ -113,7 +113,10 @@ export class NewHeroeComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: '', detail: 'Este héroe ya existe' });
     else {
       this.messageService.add({ severity: 'success', summary: '', detail: 'Héroe creado correctamente' });
+
       this.heroeService.heroes.push(this.heroeObj);
+      this.heroeService.setItemLocalStorage();
+
       setTimeout(() => {
         this.cancel();
       }, 2000);
