@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HeroeService } from './services/heroe.service';
 
@@ -26,11 +25,5 @@ export class AppComponent implements OnInit {
       { label: 'Listado de Héroes', url: 'heroes' }
     ];
     this.asynCorrect = Promise.resolve(true);
-
-    await this.heroeService.getHeroes().pipe(first()).toPromise().then(
-      (resp: any) => {
-        this.heroeService.heroes = resp;
-      }
-    );
   }
 }

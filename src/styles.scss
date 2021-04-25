@@ -4,7 +4,7 @@ h1 {
     text-align: center;
     font-weight: bold;
     color: var(--primary-hover);
-    margin: 0;
+    margin: 1rem 0 0;
 }
 
 .form-box {
@@ -36,4 +36,13 @@ h1 {
 
 button:disabled {
     opacity: 0.5;
+}
+
+.p-confirm-dialog-reject {
+    background-color: var(--text-color-secondary);
+    border-color: var(--text-color-secondary);
+    &:hover {
+        background-color: var(--text-color) !important;
+        border-color: var(--text-color) !important;
+    }
 }

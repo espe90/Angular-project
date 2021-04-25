@@ -11,9 +11,7 @@ export class HeroeService {
     constructor(private http: HttpClient) {
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     getHeroes(): Observable<Heroe> {
         return this.http.get<Heroe>('assets/data/mock-heroes.json');

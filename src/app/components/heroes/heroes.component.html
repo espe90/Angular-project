@@ -41,12 +41,14 @@
                     {{heroe[col.mappingDTO]}}
                 </td>
                 <td>
-                    <button pButton type="button" class="p-button p-button-secondary pi pi-pencil p-mr-2"
-                        (click)="editProduct(heroe)"></button>
-                    <button pButton type="button" class="p-button p-button-danger pi pi-trash"
-                        (click)="deleteProduct(heroe)"></button>
+                    <button pButton type="button" icon="pi pi-pencil" class="p-button p-button-secondary p-mr-2"
+                        (click)="editHeroe(heroe)"></button>
+                    <button pButton type="button" icon="pi pi-trash" class="p-button p-button-danger"
+                        (click)="deleteHeroe(heroe)"></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
+
+<p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>

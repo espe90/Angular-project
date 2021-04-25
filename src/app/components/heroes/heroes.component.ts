@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { first } from 'rxjs/operators';
 import { HeroeService } from 'src/app/services/heroe.service';
-
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -16,11 +17,21 @@ export class HeroesComponent implements OnInit {
 
   constructor(
     private heroeService: HeroeService,
-    public translate: TranslateService,
-    public router: Router,
-    public http: HttpClient) { }
+    private translate: TranslateService,
+    private router: Router,
+    private http: HttpClient,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) { }
 
   async ngOnInit() {
+    if (!this.heroeService.heroes)
+      await this.heroeService.getHeroes().pipe(first()).toPromise().then(
+        (resp: any) => {
+          this.heroeService.heroes = resp;
+        }
+      );
+
     await this.getTableConfiguration();
     this.heroes = this.heroeService.heroes;
   }
@@ -58,12 +69,27 @@ export class HeroesComponent implements OnInit {
     this.router.navigate(['heroes/new']);
   }
 
-  editProduct(heroe) {
+  editHeroe(heroe) {
     localStorage.setItem('selectedHeroe', JSON.stringify(heroe));
     this.router.navigate(['heroes/' + heroe.id + '/view']);
   }
 
-  deleteProduct(heroe) {
+  deleteHeroe(heroe) {
+    this.confirmationService.confirm({
+      header: 'Confirmación de borrado',
+      message: '¿Está seguro que quiere eliminar el héroe ' + heroe.name + '?',
+      acceptLabel: 'Si',
+      rejectLabel: 'No',
+      accept: () => {
+        this.confirmationService.close();
+        let index = this.heroeService.heroes.indexOf(heroe);
+        this.heroeService.heroes.splice(index, 1);
+        this.messageService.add({ severity: 'success', summary: '', detail: 'Héroe eliminado correctamente' });
+      },
+      reject: () => {
+        this.confirmationService.close();
+      }
+    });
 
   }
 
