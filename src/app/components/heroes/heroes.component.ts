@@ -72,13 +72,10 @@ export class HeroesComponent implements OnInit {
       message: 'Are you sure you want to remove the hero ' + hero.name + '?',
       acceptLabel: 'Yes',
       rejectLabel: 'No',
-      accept: () => {
-        this.confirmationService.close();
-        let index = this.heroeService.heroes.indexOf(hero);
-        this.heroeService.heroes.splice(index, 1);
-        this.heroeService.setItemLocalStorage();
-
-        this.messageService.add({ severity: 'success', summary: '', detail: 'Hero successfully eliminated' });
+      accept: async () => {
+        let promise = await this.heroeService.deletedHero(hero);
+        if (promise)
+          this.confirmationService.close();
       },
       reject: () => {
         this.confirmationService.close();

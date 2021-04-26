@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
@@ -22,10 +22,5 @@ export class AppComponent implements OnInit {
       { label: 'List of Heroes', url: 'heroes' }
     ];
     this.asynCorrect = Promise.resolve(true);
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event) {
-    localStorage.clear();
   }
 }

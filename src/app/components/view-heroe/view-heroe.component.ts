@@ -119,7 +119,7 @@ export class ViewHeroeComponent implements OnInit {
     }
   }
 
-  updatedHero() {
+  async updatedHero() {
     this.heroObj.id = this.oldHero.id;
     this.heroObj.name = this.viewHeroForm.get('name').value;
     this.heroObj.height = this.viewHeroForm.get('height').value;
@@ -127,24 +127,12 @@ export class ViewHeroeComponent implements OnInit {
     this.heroObj.gender = (this.viewHeroForm.get('gender').value).code;
     this.heroObj.alignment = (this.viewHeroForm.get('alignment').value).code;
 
+    let promise = await this.heroeService.updatedHero(this.heroObj);
 
-    let oldHero = this.heroeService.heroes.find(heroe => heroe.id == this.heroObj.id);
-    let index;
-
-    let exists = this.heroeService.heroes.find(he => (oldHero.name !== this.heroObj.name && he.name === this.heroObj.name));
-
-    if (exists)
-      this.messageService.add({ severity: 'error', summary: '', detail: 'This hero already exists' });
-    else {
-      index = this.heroeService.heroes.indexOf(oldHero);
-      this.heroeService.heroes.splice(index, 1);
-      this.heroeService.heroes.push(this.heroObj);
-      this.heroeService.setItemLocalStorage();
-
-      this.messageService.add({ severity: 'success', summary: '', detail: 'Hero updated successfully' });
+    if (promise) {
       setTimeout(() => {
         this.cancel();
-      }, 2000);
+      }, 1000);
     }
   }
 

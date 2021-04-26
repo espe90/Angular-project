@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Hero } from '../models/hero';
 @Injectable({
     providedIn: 'root'
@@ -7,7 +8,9 @@ import { Hero } from '../models/hero';
 
 export class HeroeService {
     heroes: any[];
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private messageService: MessageService) {
     }
 
     ngOnInit() { }
@@ -42,4 +45,56 @@ export class HeroeService {
     setItemLocalStorage() {
         localStorage.setItem('Heroes', JSON.stringify(this.heroes));
     }
+
+    addHero(heroObj: Hero): Promise<boolean> {
+        return new Promise((resolve) => {
+            let exists = this.heroes.find(hero => hero.name === heroObj.name);
+
+            if (exists) {
+                this.messageService.add({ severity: 'error', summary: '', detail: 'This hero already exists' });
+                resolve(false);
+            } else {
+                this.messageService.add({ severity: 'success', summary: '', detail: 'Hero created correctly' });
+
+                this.heroes.push(heroObj);
+                this.setItemLocalStorage();
+                resolve(true);
+            }
+        })
+    }
+
+    updatedHero(heroObj: Hero): Promise<boolean> {
+        return new Promise((resolve) => {
+
+            let oldHero = this.heroes.find(hero => hero.id == heroObj.id);
+            let index;
+
+            let exists = this.heroes.find(he => (oldHero.name !== heroObj.name && he.name === heroObj.name));
+
+            if (exists) {
+                this.messageService.add({ severity: 'error', summary: '', detail: 'This hero already exists' });
+                resolve(false);
+            } else {
+                index = this.heroes.indexOf(oldHero);
+                this.heroes.splice(index, 1);
+                this.heroes.push(heroObj);
+                this.setItemLocalStorage();
+
+                this.messageService.add({ severity: 'success', summary: '', detail: 'Hero updated successfully' });
+                resolve(true);
+            }
+        });
+    }
+
+    deletedHero(hero: Hero): Promise<boolean> {
+        return new Promise((resolve) => {
+            let index = this.heroes.indexOf(hero);
+            this.heroes.splice(index, 1);
+            this.setItemLocalStorage();
+
+            this.messageService.add({ severity: 'success', summary: '', detail: 'Hero successfully eliminated' });
+            resolve(true);
+        });
+    }
+
 }

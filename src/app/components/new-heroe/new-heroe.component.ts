@@ -100,26 +100,19 @@ export class NewHeroeComponent implements OnInit {
     this.heroObj[area] = value.code;
   }
 
-  saveHero() {
+  async saveHero() {
     this.heroObj.name = this.newHeroForm.get('name').value;
     this.heroObj.height = this.newHeroForm.get('height').value;
     this.heroObj.publisher = this.newHeroForm.get('publisher').value;
 
     this.heroObj.id = this.heroeService.heroes[this.heroeService.heroes.length - 1].id + 1;
 
-    let exists = this.heroeService.heroes.find(hero => hero.name === this.heroObj.name);
+    let promise = await this.heroeService.addHero(this.heroObj);
 
-    if (exists)
-      this.messageService.add({ severity: 'error', summary: '', detail: 'This hero already exists' });
-    else {
-      this.messageService.add({ severity: 'success', summary: '', detail: 'Hero created correctly' });
-
-      this.heroeService.heroes.push(this.heroObj);
-      this.heroeService.setItemLocalStorage();
-
+    if (promise) {
       setTimeout(() => {
         this.cancel();
-      }, 2000);
+      }, 1000);
     }
   }
 
