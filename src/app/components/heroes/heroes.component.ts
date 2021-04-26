@@ -44,10 +44,10 @@ export class HeroesComponent implements OnInit {
   filterInput(data: string, type: string) {
     switch (type) {
       case 'id':
-        this.heroes = this.heroeService.getHeroeById(Number(data));
+        this.heroes = this.heroeService.getHeroById(Number(data));
         break;
       case 'name':
-        this.heroes = this.heroeService.filterHeroe(data);
+        this.heroes = this.heroeService.filterHero(data);
         break;
       default:
         break;
@@ -61,20 +61,20 @@ export class HeroesComponent implements OnInit {
     this.router.navigate(['heroes/new']);
   }
 
-  editHeroe(heroe) {
-    localStorage.setItem('selectedHeroe', JSON.stringify(heroe));
-    this.router.navigate(['heroes/' + heroe.id + '/view']);
+  editHero(hero) {
+    localStorage.setItem('selectedHero', JSON.stringify(hero));
+    this.router.navigate(['heroes/' + hero.id + '/view']);
   }
 
-  deleteHeroe(heroe) {
+  deleteHero(hero) {
     this.confirmationService.confirm({
       header: 'Delete confirmation',
-      message: 'Are you sure you want to remove the hero ' + heroe.name + '?',
+      message: 'Are you sure you want to remove the hero ' + hero.name + '?',
       acceptLabel: 'Yes',
       rejectLabel: 'No',
       accept: () => {
         this.confirmationService.close();
-        let index = this.heroeService.heroes.indexOf(heroe);
+        let index = this.heroeService.heroes.indexOf(hero);
         this.heroeService.heroes.splice(index, 1);
         this.heroeService.setItemLocalStorage();
 

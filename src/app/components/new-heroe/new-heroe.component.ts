@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Heroe } from 'src/app/models/heroe';
+import { Hero } from 'src/app/models/hero';
 import { HeroeService } from 'src/app/services/heroe.service';
 
 @Component({
@@ -11,10 +11,10 @@ import { HeroeService } from 'src/app/services/heroe.service';
   styleUrls: ['./new-heroe.component.scss']
 })
 export class NewHeroeComponent implements OnInit {
-  @ViewChild('newHeroe', { static: false }) newHeroe: NgForm;
-  newHeroeForm = new FormGroup({});
+  @ViewChild('newHero', { static: false }) newHero: NgForm;
+  newHeroForm = new FormGroup({});
   asyncCorrect: Promise<boolean>;
-  heroeObj: Heroe = new Heroe;
+  heroObj: Hero = new Hero;
 
   json: any;
   valueSelect: Map<string, any> = new Map<string, any>();
@@ -89,32 +89,32 @@ export class NewHeroeComponent implements OnInit {
         required = Validators.required;
 
       if (label.tag === 'input' && label.type === 'number')
-        this.newHeroeForm.addControl(label.mappingDTO, new FormControl(label.min, required));
+        this.newHeroForm.addControl(label.mappingDTO, new FormControl(label.min, required));
       else
-        this.newHeroeForm.addControl(label.mappingDTO, new FormControl('', required));
+        this.newHeroForm.addControl(label.mappingDTO, new FormControl('', required));
     });
     this.asyncCorrect = Promise.resolve(true);
   }
 
   setValueSelect(value, area: string) {
-    this.heroeObj[area] = value.code;
+    this.heroObj[area] = value.code;
   }
 
-  saveHeroe() {
-    this.heroeObj.name = this.newHeroeForm.get('name').value;
-    this.heroeObj.height = this.newHeroeForm.get('height').value;
-    this.heroeObj.publisher = this.newHeroeForm.get('publisher').value;
+  saveHero() {
+    this.heroObj.name = this.newHeroForm.get('name').value;
+    this.heroObj.height = this.newHeroForm.get('height').value;
+    this.heroObj.publisher = this.newHeroForm.get('publisher').value;
 
-    this.heroeObj.id = this.heroeService.heroes[this.heroeService.heroes.length - 1].id + 1;
+    this.heroObj.id = this.heroeService.heroes[this.heroeService.heroes.length - 1].id + 1;
 
-    let exists = this.heroeService.heroes.find(heroe => heroe.name === this.heroeObj.name);
+    let exists = this.heroeService.heroes.find(hero => hero.name === this.heroObj.name);
 
     if (exists)
       this.messageService.add({ severity: 'error', summary: '', detail: 'This hero already exists' });
     else {
       this.messageService.add({ severity: 'success', summary: '', detail: 'Hero created correctly' });
 
-      this.heroeService.heroes.push(this.heroeObj);
+      this.heroeService.heroes.push(this.heroObj);
       this.heroeService.setItemLocalStorage();
 
       setTimeout(() => {

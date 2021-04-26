@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Heroe } from 'src/app/models/heroe';
+import { Hero } from 'src/app/models/hero';
 import { HeroeService } from 'src/app/services/heroe.service';
 
 @Component({
@@ -11,11 +11,11 @@ import { HeroeService } from 'src/app/services/heroe.service';
   styleUrls: ['./view-heroe.component.scss']
 })
 export class ViewHeroeComponent implements OnInit {
-  @ViewChild('viewHeroe', { static: false }) viewHeroe: NgForm;
-  viewHeroeForm = new FormGroup({});
+  @ViewChild('viewHero', { static: false }) viewHero: NgForm;
+  viewHeroForm = new FormGroup({});
   asyncCorrect: Promise<boolean>;
-  heroeObj: Heroe = new Heroe;
-  oldHeroe: any;
+  heroObj: Hero = new Hero;
+  oldHero: any;
 
   json: any;
   valueSelect: Map<string, any> = new Map<string, any>();
@@ -26,8 +26,8 @@ export class ViewHeroeComponent implements OnInit {
     private messageService: MessageService) { }
 
   async ngOnInit() {
-    if (localStorage.getItem('selectedHeroe')) {
-      this.oldHeroe = JSON.parse(localStorage.getItem('selectedHeroe'));
+    if (localStorage.getItem('selectedHero')) {
+      this.oldHero = JSON.parse(localStorage.getItem('selectedHero'));
     } else
       window.history.back();
 
@@ -95,50 +95,50 @@ export class ViewHeroeComponent implements OnInit {
         required = Validators.required;
       if (label.tag === 'select') {
         let select = await this.findSelect(label);
-        this.viewHeroeForm.addControl(label.mappingDTO, new FormControl({ name: select.name, code: select.code }, required));
+        this.viewHeroForm.addControl(label.mappingDTO, new FormControl({ name: select.name, code: select.code }, required));
       } else
-        this.viewHeroeForm.addControl(label.mappingDTO, new FormControl(this.oldHeroe[label.mappingDTO], required));
+        this.viewHeroForm.addControl(label.mappingDTO, new FormControl(this.oldHero[label.mappingDTO], required));
     });
     this.asyncCorrect = Promise.resolve(true);
   }
 
   setValueSelect(value, area: string) {
-    this.heroeObj[area] = value.code;
+    this.heroObj[area] = value.code;
   }
 
   async findSelect(element: any) {
     let values: any[] = this.valueSelect.get(element.mappingDTO);
-    if (this.oldHeroe[element.mappingDTO] == '')
-      this.oldHeroe[element.mappingDTO] = null;
-    let select: any = values.find(value => (value.code === this.oldHeroe[element.mappingDTO]));
+    if (this.oldHero[element.mappingDTO] == '')
+      this.oldHero[element.mappingDTO] = null;
+    let select: any = values.find(value => (value.code === this.oldHero[element.mappingDTO]));
     if (select)
       return select;
     else {
-      let select: any = values.find(value => (value.name === this.oldHeroe[element.mappingDTO]));
+      let select: any = values.find(value => (value.name === this.oldHero[element.mappingDTO]));
       return select;
     }
   }
 
-  updatedHeroe() {
-    this.heroeObj.id = this.oldHeroe.id;
-    this.heroeObj.name = this.viewHeroeForm.get('name').value;
-    this.heroeObj.height = this.viewHeroeForm.get('height').value;
-    this.heroeObj.publisher = this.viewHeroeForm.get('publisher').value;
-    this.heroeObj.gender = (this.viewHeroeForm.get('gender').value).code;
-    this.heroeObj.alignment = (this.viewHeroeForm.get('alignment').value).code;
+  updatedHero() {
+    this.heroObj.id = this.oldHero.id;
+    this.heroObj.name = this.viewHeroForm.get('name').value;
+    this.heroObj.height = this.viewHeroForm.get('height').value;
+    this.heroObj.publisher = this.viewHeroForm.get('publisher').value;
+    this.heroObj.gender = (this.viewHeroForm.get('gender').value).code;
+    this.heroObj.alignment = (this.viewHeroForm.get('alignment').value).code;
 
 
-    let oldHeroe = this.heroeService.heroes.find(heroe => heroe.id == this.heroeObj.id);
+    let oldHero = this.heroeService.heroes.find(heroe => heroe.id == this.heroObj.id);
     let index;
 
-    let exists = this.heroeService.heroes.find(he => (oldHeroe.name !== this.heroeObj.name && he.name === this.heroeObj.name));
+    let exists = this.heroeService.heroes.find(he => (oldHero.name !== this.heroObj.name && he.name === this.heroObj.name));
 
     if (exists)
       this.messageService.add({ severity: 'error', summary: '', detail: 'This hero already exists' });
     else {
-      index = this.heroeService.heroes.indexOf(oldHeroe);
+      index = this.heroeService.heroes.indexOf(oldHero);
       this.heroeService.heroes.splice(index, 1);
-      this.heroeService.heroes.push(this.heroeObj);
+      this.heroeService.heroes.push(this.heroObj);
       this.heroeService.setItemLocalStorage();
 
       this.messageService.add({ severity: 'success', summary: '', detail: 'Hero updated successfully' });
@@ -154,7 +154,7 @@ export class ViewHeroeComponent implements OnInit {
   }
 
   removeStorage() {
-    localStorage.removeItem('selectedHeroe');
+    localStorage.removeItem('selectedHero');
   }
 
 }

@@ -35,16 +35,16 @@
                 <th>{{'Heroes.Table.Headers.Actions' | translate | uppercase }}</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-heroe let-columns="columns">
+        <ng-template pTemplate="body" let-hero let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
-                    {{heroe[col.mappingDTO]}}
+                    {{hero[col.mappingDTO]}}
                 </td>
                 <td>
                     <button pButton type="button" icon="pi pi-pencil" class="p-button p-button-secondary p-mr-2"
-                        (click)="editHeroe(heroe)"></button>
+                        (click)="editHero(hero)"></button>
                     <button pButton type="button" icon="pi pi-trash" class="p-button p-button-danger"
-                        (click)="deleteHeroe(heroe)"></button>
+                        (click)="deleteHero(hero)"></button>
                 </td>
             </tr>
         </ng-template>

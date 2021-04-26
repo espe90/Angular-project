@@ -2,7 +2,7 @@
     <h2>{{'Heroes.New.Title' | translate }}</h2>
 </div>
 <div *ngIf="asyncCorrect | async" class="p-grid" style="justify-content: center;">
-    <form [formGroup]="newHeroeForm" #newHeroe="ngForm" class="p-col-4">
+    <form [formGroup]="newHeroForm" #newHero="ngForm" class="p-col-4">
         <ng-container *ngFor="let label of json.labels">
             <ng-container [ngSwitch]="label.tag">
                 <div class="p-col form-box" *ngSwitchCase="'input'">
@@ -25,7 +25,7 @@
         <button type="button" class="p-button p-button-secondary" pButton (click)="cancel()"
             style="margin-right: 5rem;"> {{'Buttons.Cancel' | translate}}
         </button>
-        <button type="button" class="p-button" pButton (click)="saveHeroe()" [disabled]="newHeroeForm.invalid">
+        <button type="button" class="p-button" pButton (click)="saveHero()" [disabled]="newHeroForm.invalid">
             {{'Buttons.Save' | translate}}
         </button>
     </div>

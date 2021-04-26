@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Heroe } from '../models/heroe';
+import { Hero } from '../models/hero';
 @Injectable({
     providedIn: 'root'
 })
@@ -12,29 +12,29 @@ export class HeroeService {
 
     ngOnInit() { }
 
-    async getHeroes(): Promise<Heroe[]> {
+    async getHeroes(): Promise<Hero[]> {
         this.heroes = JSON.parse(localStorage.getItem('Heroes'));
         if (!this.heroes)
-            this.heroes = await this.http.get<Heroe>('assets/data/mock-heroes.json').toPromise().then(
+            this.heroes = await this.http.get<Hero>('assets/data/mock-heroes.json').toPromise().then(
                 (resp: any) => resp);
         return this.heroes;
     }
 
-    getHeroeById(id: number): Heroe[] {
+    getHeroById(id: number): Hero[] {
         let heroes: any[];
-        let heroe = this.heroes.find(heroe => (heroe.id === id));
-        if (heroe) {
+        let hero = this.heroes.find(hero => (hero.id === id));
+        if (hero) {
             heroes = [];
-            heroes.push(heroe);
+            heroes.push(hero);
         }
         return heroes;
     }
 
-    filterHeroe(text: string): Heroe[] {
+    filterHero(text: string): Hero[] {
         let heroes: any[] = [];
-        this.heroes.forEach(heroe => {
-            if (String(heroe.name).includes(text) || String(heroe.name).toLocaleLowerCase().includes(String(text)))
-                heroes.push(heroe);
+        this.heroes.forEach(hero => {
+            if (String(hero.name).includes(text) || String(hero.name).toLocaleLowerCase().includes(String(text)))
+                heroes.push(hero);
         });
         return heroes;
     }
