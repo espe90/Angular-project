@@ -46,6 +46,10 @@ export class HeroeService {
         localStorage.setItem('Heroes', JSON.stringify(this.heroes));
     }
 
+    getItemsLocalStorage(): any[] {
+        return JSON.parse(localStorage.getItem('Heroes'));
+    }
+
     addHero(heroObj: Hero): Promise<boolean> {
         return new Promise((resolve) => {
             let exists = this.heroes.find(hero => hero.name === heroObj.name);
@@ -86,10 +90,9 @@ export class HeroeService {
         });
     }
 
-    deletedHero(hero: Hero): Promise<boolean> {
+    deletedHero(hero): Promise<boolean> {
         return new Promise((resolve) => {
-            let index = this.heroes.indexOf(hero);
-            this.heroes.splice(index, 1);
+            this.heroes = this.heroes.filter(he => he.id !== hero.id);
             this.setItemLocalStorage();
 
             this.messageService.add({ severity: 'success', summary: '', detail: 'Hero successfully eliminated' });

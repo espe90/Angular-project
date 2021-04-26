@@ -74,8 +74,10 @@ export class HeroesComponent implements OnInit {
       rejectLabel: 'No',
       accept: async () => {
         let promise = await this.heroeService.deletedHero(hero);
-        if (promise)
+        if (promise) {
+          this.heroes = this.heroeService.getItemsLocalStorage();
           this.confirmationService.close();
+        }
       },
       reject: () => {
         this.confirmationService.close();
