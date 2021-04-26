@@ -20,9 +20,9 @@ export class HeroeService {
         return this.heroes;
     }
 
-    getHeroeById(id: number, data: Heroe[]): Heroe[] {
+    getHeroeById(id: number): Heroe[] {
         let heroes: any[];
-        let heroe = data.find(heroe => (heroe.id === id));
+        let heroe = this.heroes.find(heroe => (heroe.id === id));
         if (heroe) {
             heroes = [];
             heroes.push(heroe);
@@ -30,9 +30,9 @@ export class HeroeService {
         return heroes;
     }
 
-    filterHeroe(text: string, data: Heroe[]): Heroe[] {
+    filterHeroe(text: string): Heroe[] {
         let heroes: any[] = [];
-        data.forEach(heroe => {
+        this.heroes.forEach(heroe => {
             if (String(heroe.name).includes(text) || String(heroe.name).toLocaleLowerCase().includes(String(text)))
                 heroes.push(heroe);
         });

@@ -44,10 +44,10 @@ export class HeroesComponent implements OnInit {
   filterInput(data: string, type: string) {
     switch (type) {
       case 'id':
-        this.heroes = this.heroeService.getHeroeById(Number(data), this.heroes);
+        this.heroes = this.heroeService.getHeroeById(Number(data));
         break;
       case 'name':
-        this.heroes = this.heroeService.filterHeroe(data, this.heroes);
+        this.heroes = this.heroeService.filterHeroe(data);
         break;
       default:
         break;
@@ -68,9 +68,9 @@ export class HeroesComponent implements OnInit {
 
   deleteHeroe(heroe) {
     this.confirmationService.confirm({
-      header: 'Confirmación de borrado',
-      message: '¿Está seguro que quiere eliminar el héroe ' + heroe.name + '?',
-      acceptLabel: 'Si',
+      header: 'Delete confirmation',
+      message: 'Are you sure you want to remove the hero ' + heroe.name + '?',
+      acceptLabel: 'Yes',
       rejectLabel: 'No',
       accept: () => {
         this.confirmationService.close();
@@ -78,7 +78,7 @@ export class HeroesComponent implements OnInit {
         this.heroeService.heroes.splice(index, 1);
         this.heroeService.setItemLocalStorage();
 
-        this.messageService.add({ severity: 'success', summary: '', detail: 'Héroe eliminado correctamente' });
+        this.messageService.add({ severity: 'success', summary: '', detail: 'Hero successfully eliminated' });
       },
       reject: () => {
         this.confirmationService.close();

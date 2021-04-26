@@ -45,7 +45,7 @@ export class NewHeroeComponent implements OnInit {
   getGender() {
     let gender = [
       {
-        name: "Seleccione un tipo",
+        name: "Select a type",
         code: null
       },
       {
@@ -63,7 +63,7 @@ export class NewHeroeComponent implements OnInit {
   getAlignment() {
     let alignment = [
       {
-        name: "Seleccione un tipo",
+        name: "Select a type",
         code: null
       },
       {
@@ -107,12 +107,12 @@ export class NewHeroeComponent implements OnInit {
 
     this.heroeObj.id = this.heroeService.heroes[this.heroeService.heroes.length - 1].id + 1;
 
-    let existe = this.heroeService.heroes.find(heroe => heroe.name === this.heroeObj.name);
+    let exists = this.heroeService.heroes.find(heroe => heroe.name === this.heroeObj.name);
 
-    if (existe)
-      this.messageService.add({ severity: 'error', summary: '', detail: 'Este héroe ya existe' });
+    if (exists)
+      this.messageService.add({ severity: 'error', summary: '', detail: 'This hero already exists' });
     else {
-      this.messageService.add({ severity: 'success', summary: '', detail: 'Héroe creado correctamente' });
+      this.messageService.add({ severity: 'success', summary: '', detail: 'Hero created correctly' });
 
       this.heroeService.heroes.push(this.heroeObj);
       this.heroeService.setItemLocalStorage();

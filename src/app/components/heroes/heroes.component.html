@@ -9,12 +9,12 @@
             <span class="p-input-icon-left p-mr-2">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (keyup.enter)="filterInput($event.target.value,'id')"
-                    placeholder="Filtrar por ID" />
+                    placeholder="Filter by ID" />
             </span>
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (keyup.enter)="filterInput($event.target.value,'name')"
-                    placeholder="Filtrar por nombre" />
+                    placeholder="Filter by name" />
             </span>
         </div>
         <div class="p-col p-d-flex" style="justify-content: flex-end;">
@@ -26,7 +26,7 @@
     <p-table [value]="heroes" [columns]="configTable.cols" [paginator]="configTable.paginator" [rows]="configTable.rows"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="configTable.rowsPerPageOptions"
         styleClass="p-datatable-responsive-demo" [resizableColumns]="true"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados">
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" pSortableColumn="{{col.mappingDTO}}">{{col.header | translate |

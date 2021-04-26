@@ -1,0 +1,40 @@
+{
+    "Home": {
+        "Title": "Heroes"
+    },
+    "Heroes": {
+        "Table": {
+            "Headers": {
+                "Id": "Id",
+                "Name": "Name",
+                "Gen": "Gender",
+                "Alt": "Height",
+                "Cread": "Publisher",
+                "Alin": "Alignment",
+                "Actions": "Actions"
+            }
+        },
+        "Form": {
+            "Name": "Name",
+            "Gen": "Gender",
+            "Alt": "Height",
+            "Cread": "Publisher",
+            "Alin": "Alignment",
+        },
+        "New": {
+            "Title": "New Hero"
+        },
+        "Edit": {
+            "Title": "Hero Edition"
+        }
+    },
+    "Buttons": {
+        "Create": "Add Hero",
+        "Edit": "Edit",
+        "Delete": "Delete",
+        "Reset": "Reload",
+        "Cancel": "Cancel",
+        "Save": "Save",
+        "Updated": "Update"
+    }
+}
