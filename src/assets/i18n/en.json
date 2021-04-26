@@ -19,7 +19,7 @@
             "Gen": "Gender",
             "Alt": "Height",
             "Cread": "Publisher",
-            "Alin": "Alignment",
+            "Alin": "Alignment"
         },
         "New": {
             "Title": "New Hero"
